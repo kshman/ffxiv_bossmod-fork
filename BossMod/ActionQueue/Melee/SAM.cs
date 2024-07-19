@@ -40,6 +40,7 @@ public enum AID : uint
     Fuko = 25780, // L86, instant, GCD, range 0, AOE 5 circle, targets=self
     OgiNamikiri = 25781, // L90, 1.8s cast, GCD, range 8, AOE 8+R ?-degree cone, targets=hostile, animLock=???
     KaeshiNamikiri = 25782, // L90, instant, 1.0s CD (group 2/57), range 8, AOE 8+R ?-degree cone, targets=hostile
+    Gyofu = 36963, // L92, instant, GCD, range 3, single-target, targets=hostile
 
     // Shared
     Braver = ClassShared.AID.Braver, // LB1, 2.0s cast, range 8, single-target, targets=hostile, castAnimLock=3.860

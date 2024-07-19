@@ -102,7 +102,7 @@ public sealed class LegacySAM : LegacyModule
         public float CastTime => Unlocked(SAM.TraitID.EnhancedIaijutsu) ? 1.3f : 1.8f;
 
         public bool HasCombatBuffs => FukaLeft > GCD && FugetsuLeft > GCD;
-        public bool InCombo => ComboTimeLeft > GCD && ComboLastMove is SAM.AID.Fuko or SAM.AID.Fuga or SAM.AID.Hakaze or SAM.AID.Jinpu or SAM.AID.Shifu;
+        public bool InCombo => ComboTimeLeft > GCD && ComboLastMove is SAM.AID.Fuko or SAM.AID.Fuga or SAM.AID.Hakaze or SAM.AID.Jinpu or SAM.AID.Shifu or SAM.AID.Gyofu;
 
         public float NextMeikyoCharge => CD(SAM.AID.MeikyoShisui) - 55;
         public float NextTsubameCharge => CD(SAM.AID.TsubameGaeshi) - 60;
@@ -352,14 +352,14 @@ public sealed class LegacySAM : LegacyModule
             if (_state.ComboLastMove == SAM.AID.Shifu && _state.Unlocked(SAM.AID.Kasha))
                 return SAM.AID.Kasha;
 
-            if (_state.ComboLastMove == SAM.AID.Hakaze)
+            if (_state.ComboLastMove is SAM.AID.Hakaze or SAM.AID.Gyofu)
             {
                 var aid = GetHakazeComboAction();
                 if (aid != SAM.AID.None)
                     return aid;
             }
 
-            return SAM.AID.Hakaze;
+            return _state.Unlocked(SAM.AID.Gyofu) ? SAM.AID.Gyofu : SAM.AID.Hakaze;
         }
     }
 
@@ -576,7 +576,7 @@ public sealed class LegacySAM : LegacyModule
         if (_state.ComboLastMove == SAM.AID.Shifu && _state.Unlocked(SAM.AID.Kasha))
             return (Positional.Flank, true);
 
-        if (_state.ComboLastMove == SAM.AID.Hakaze)
+        if (_state.ComboLastMove is SAM.AID.Hakaze or SAM.AID.Gyofu)
         {
             var predicted = GetHakazeComboAction();
             // TODO: DRY
